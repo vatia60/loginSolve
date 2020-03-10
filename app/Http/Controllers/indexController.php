@@ -25,12 +25,14 @@ class indexController extends Controller
            'password' => 'required',
        ]);
 
-           $new = new User;
-           $new->username = $request->username;
-           $new->email = strtolower($request->email);
-           $new->password = bcrypt($request->password);
-           $new->save();
-       
+           $data = [
+               'username' => $request->input('username'),
+               'email' => strtolower($request->input('email')),
+               'password' =>bcrypt($request->input('password')),
+           ];
+
+           User::create($data);
+
            return redirect()->route('login');
     }
     public function login ()
